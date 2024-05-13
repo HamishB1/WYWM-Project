@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team/Member Detail</title>
+</head>
+<body>
+    <h1>{{ team.name if team else member.name }}</h1>
+    <p>Details:</p>
+    <ul>
+        <li>Role: {{ team.role if team else member.role }}</li>
+        <li>Team: {{ team.location if team else member.location }}</li>
+        <li>Start Date: {{ team.start_date if team else member.start_date }}</li>
+    </ul>
+</body>
+</html>
