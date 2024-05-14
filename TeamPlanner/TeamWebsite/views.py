@@ -16,17 +16,14 @@ def home(request):
     team_members = {}
     # Add this debugging line to print the contents of team_members
     print("Initial team_members:", team_members)
-
     # Iterate over each team
     for team in teams:
         # Access the members of the current team using the related name 'member_set'
         members = team.member_set.all()
         # Add the team and its members to the 'team_members' dictionary
         team_members[team] = members
-
     # Print the final contents of team_members
     print("Final team_members:", team_members)
-
     # Render the 'home.html' template with the team members data
     return render(request, 'home.html', {'teams': teams, 'team_members': team_members})
 
@@ -34,8 +31,10 @@ def home(request):
 def team_detail(request, team_id):
     # Fetch the team with the given ID from the database, or return a 404 error if not found
     team = get_object_or_404(Team, id=team_id)
-    # Render the 'team_detail.html' template with the team data
-    return render(request, 'team_detail.html', {'team': team})
+    # Fetch all members of the team
+    team_members = Member.objects.filter(team=team)
+    # Render the 'team_detail.html' template with the team data and its members
+    return render(request, 'team_detail.html', {'team': team, 'team_members': team_members})
 
 
 def member_detail(request, member_id):

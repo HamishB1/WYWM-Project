@@ -4,12 +4,13 @@
     <title>Team/Member Detail</title>
 </head>
 <body>
-    <h1>{{ team.name if team else member.name }}</h1>
-    <p>Details:</p>
+    <h1>{{ team.name }}</h1>
+
+    <h2>Team Members:</h2>
     <ul>
-        <li>Role: {{ team.role if team else member.role }}</li>
-        <li>Team: {{ team.location if team else member.location }}</li>
-        <li>Start Date: {{ team.start_date if team else member.start_date }}</li>
+        {% for member in team_members %}
+            <li>{{ member.name }} - {{ member.role }} - {{ member.start_date }}</li>
+        {% endfor %}
     </ul>
 </body>
 </html>
