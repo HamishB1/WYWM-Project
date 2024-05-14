@@ -1,5 +1,9 @@
+from django.contrib.auth.models import AbstractUser, Permission
 from django.db import models
-from django.contrib.auth.models import Permission
+
+
+class User(AbstractUser):
+    pass
 
 
 class TeamManager(models.Manager):

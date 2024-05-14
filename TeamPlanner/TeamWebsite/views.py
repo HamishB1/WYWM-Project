@@ -1,14 +1,34 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import Group
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.forms import modelform_factory
+from django.contrib import messages
 from .models import Team, Member
-from .forms import TeamForm
+from .forms import TeamForm, MemberForm
 
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Redirect to the home page after successful login
+        else:
+            # Authentication failed
+            return render(request, 'login.html', {'error_message': 'Invalid username or password.'})
+    else:
+        return render(request, 'login.html')
+
+@login_required
 def TeamWebsite(request):
     teams = Team.objects.all()
     return render(request, 'home.html', {'teams': teams})
 
 
+@login_required
 def home(request):
     teams = Team.objects.all()
     team_members = {}
@@ -18,20 +38,20 @@ def home(request):
     return render(request, 'home.html', {'teams': teams, 'team_members': team_members})
 
 
+@login_required
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     team_members = Member.objects.filter(team=team)
     return render(request, 'team_detail.html', {'team': team, 'team_members': team_members})
 
 
+@login_required
 def member_detail(request, member_id):
     member = get_object_or_404(Member, id=member_id)
     return render(request, 'member_detail.html', {'member': member})
 
 
-MemberForm = modelform_factory(Member, exclude=[])
-
-
+@login_required
 def new_member(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
@@ -43,6 +63,7 @@ def new_member(request):
     return render(request, "new_member.html", {"form": form})
 
 
+@login_required
 def new_team(request):
     if request.method == "POST":
         form = TeamForm(request.POST)

@@ -26,6 +26,14 @@
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'new_member' %}">Add New Member</a></li>
+            <li><a href="{% url 'new_team' %}">Add New Team</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
     <h1>Teams</h1>
     {% for team, members in team_members.items %}
     <div class="team-card">
@@ -48,7 +56,5 @@
         </div>
     </div> <!-- Closing the div tag for team-card class -->
     {% endfor %}
-    <a href="{% url 'new_member' %}">Add New Member</a>  <!-- Link to new member form -->
-    <a href="{% url 'new_team' %}">Add New Team</a>  <!-- Link to new team form -->
 </body>
 </html>
