@@ -25,16 +25,20 @@
 </head>
 <body>
     <h1>Teams</h1>
-    {% for team in teams %}
+    {% for team, members in team_members.items %}
     <div class="team-card">
         <div class="team-name">{{ team.name }}</div>
         <div class="team-members">
             <h2>Members:</h2>
-            <ul>
-                {% for member in team.members.all %}
-                    <li class="member-item">{{ member.name }}</li>
-                {% endfor %}
-            </ul>
+            {% if members %}
+                <ul>
+                    {% for member in members %}
+                        <li class="member-item">{{ member.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No members found for this team.</p>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

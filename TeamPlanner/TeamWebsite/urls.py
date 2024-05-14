@@ -1,7 +1,6 @@
 from django.urls import path
 from TeamWebsite import views
 
-
 urlpatterns = [
     path('', views.TeamWebsite, name='home'),
     path('team/<int:team_id>/', views.team_detail, name='team_detail'),
