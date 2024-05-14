@@ -1,8 +1,7 @@
 """
 URL configuration for TeamPlanner project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+The `urlpatterns` list routes URLs to views.
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,16 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from TeamWebsite import views
-
+from django.urls import path, include
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', include('TeamWebsite.urls')),
     path('admin/', admin.site.urls),
-    path('team/<int:team_id>/', views.team_detail, name='team_detail'),
-    path('member/<int:member_id>/', views.member_detail, name='member_detail'),
     # Add more URL patterns for CRUD operations
 ]
-

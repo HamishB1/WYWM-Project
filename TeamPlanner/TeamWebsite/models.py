@@ -1,14 +1,19 @@
 from django.db import models
 
 
-class Location(models.Model):
-    name = models.CharField(max_length=100)
+class TeamManager(models.Manager):
+    pass
+
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
 
+    # Define a default manager
+    objects = TeamManager()
+
     def __str__(self):
         return self.name
+
 
 class Manager(models.Model):
     name = models.CharField(max_length=100)
@@ -18,6 +23,7 @@ class Manager(models.Model):
     def __str__(self):
         return self.name
 
+
 class Member(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
@@ -26,7 +32,6 @@ class Member(models.Model):
 
     def __str__(self):
         return self.name
-
 
     # Define a default manager
     objects = models.Manager()

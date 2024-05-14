@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .team-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .team-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .team-members {
+            margin-top: 10px;
+        }
+        .member-item {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teams</h1>
+    {% for team in teams %}
+    <div class="team-card">
+        <div class="team-name">{{ team.name }}</div>
+        <div class="team-members">
+            <h2>Members:</h2>
+            <ul>
+                {% for member in team.members.all %}
+                    <li class="member-item">{{ member.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
