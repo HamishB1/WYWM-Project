@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{% static 'teamwebsite/style.css' %}">
     <style>
         .team-card {
             border: 1px solid #ccc;
@@ -40,7 +42,7 @@
                 <p>No members found for this team.</p>
             {% endif %}
         </div>
-    </div>
+    </div> <!-- Closing the div tag for team-card class -->
     {% endfor %}
 </body>
 </html>
