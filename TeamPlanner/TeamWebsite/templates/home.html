@@ -29,13 +29,17 @@
     <h1>Teams</h1>
     {% for team, members in team_members.items %}
     <div class="team-card">
-        <div class="team-name">{{ team.name }}</div>
+        <div class="team-name">
+            <a href="{% url 'team_detail' team.id %}">{{ team.name }}</a> <!-- Link to team details -->
+        </div>
         <div class="team-members">
             <h2>Members:</h2>
             {% if members %}
                 <ul>
                     {% for member in members %}
-                        <li class="member-item">{{ member.name }}</li>
+                        <li class="member-item">
+                            <a href="{% url 'member_detail' member.id %}">{{ member.name }}</a> <!-- Link to member details -->
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}
@@ -44,5 +48,7 @@
         </div>
     </div> <!-- Closing the div tag for team-card class -->
     {% endfor %}
+    <a href="{% url 'new_member' %}">Add New Member</a>  <!-- Link to new member form -->
+    <a href="{% url 'new_team' %}">Add New Team</a>  <!-- Link to new team form -->
 </body>
 </html>
