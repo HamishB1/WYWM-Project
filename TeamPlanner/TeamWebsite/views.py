@@ -17,7 +17,6 @@ def home(request):
     # Add this debugging line to print the contents of team_members
     print(team_members)
 
-
     # Iterate over each team
     for team in teams:
         # Access the members of the current team using the related name 'member_set'
