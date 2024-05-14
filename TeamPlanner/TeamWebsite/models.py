@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Permission
 
 
 class TeamManager(models.Manager):
@@ -13,6 +14,11 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = [
+            ("can_manage_team", "Can manage team"),
+        ]
 
 
 class Manager(models.Model):
@@ -32,6 +38,11 @@ class Member(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = [
+            ("can_manage_member", "Can manage member"),
+        ]
 
     # Define a default manager
     objects = models.Manager()
