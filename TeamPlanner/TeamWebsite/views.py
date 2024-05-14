@@ -15,7 +15,7 @@ def home(request):
     # Initialize an empty dictionary to store team members
     team_members = {}
     # Add this debugging line to print the contents of team_members
-    print(team_members)
+    print("Initial team_members:", team_members)
 
     # Iterate over each team
     for team in teams:
@@ -23,6 +23,9 @@ def home(request):
         members = team.member_set.all()
         # Add the team and its members to the 'team_members' dictionary
         team_members[team] = members
+
+    # Print the final contents of team_members
+    print("Final team_members:", team_members)
 
     # Render the 'home.html' template with the team members data
     return render(request, 'home.html', {'teams': teams, 'team_members': team_members})
