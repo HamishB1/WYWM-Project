@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team/Member Detail</title>
+    <link rel="stylesheet" href="{% static 'teamwebsite/style.css' %}">
+</head>
+<body>
+    <h1>{{ team.name }}</h1>
+
+    <h2>Team Members:</h2>
+    <ul>
+        {% for member in team_members %}
+            <li>{{ member.name }} - {{ member.role }} - {{ member.start_date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

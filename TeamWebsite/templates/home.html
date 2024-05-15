@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'teamwebsite/style.css' %}">
+    <style>
+        .team-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .team-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .team-members {
+            margin-top: 10px;
+        }
+        .member-item {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'new_member' %}">Add New Member</a></li>
+            <li><a href="{% url 'new_team' %}">Add New Team</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+    <h1>Teams</h1>
+    {% for team, members in team_members.items %}
+    <div class="team-card">
+        <div class="team-name">
+            <a href="{% url 'team_detail' team.id %}">{{ team.name }}</a> <!-- Link to team details -->
+        </div>
+        <div class="team-members">
+            <h2>Members:</h2>
+            {% if members %}
+                <ul>
+                    {% for member in members %}
+                        <li class="member-item">
+                            <a href="{% url 'member_detail' member.id %}">{{ member.name }}</a> <!-- Link to member details -->
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No members found for this team.</p>
+            {% endif %}
+        </div>
+    </div> <!-- Closing the div tag for team-card class -->
+    {% endfor %}
+</body>
+</html>
