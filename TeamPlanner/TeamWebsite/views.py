@@ -22,6 +22,7 @@ def user_login(request):
     else:
         return render(request, 'login.html')
 
+
 @login_required
 def TeamWebsite(request):
     teams = Team.objects.all()
