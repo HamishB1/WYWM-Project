@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import modelform_factory
 from django.contrib import messages
 from .models import Team, Member
-from .forms import TeamForm, MemberForm
+from .forms import TeamForm, MemberForm, ManagerForm
 
 
 def user_login(request):
@@ -126,3 +126,30 @@ def add_member_to_team(request, team_id):
         return redirect('team_detail', team_id=team_id)
     else:
         return render(request, 'team_detail.html', {'team': team, 'team_members': team.member_set.all(), 'available_members': available_members})
+
+
+@login_required
+def create_manager(request):
+    if request.method == 'POST':
+        form = ManagerForm(request.POST)
+        if form.is_valid():
+            manager = form.save()
+            return redirect('home')  # Redirect to the home page
+    else:
+        form = ManagerForm()
+    return render(request, 'create_manager.html', {'form': form})
+
+
+@login_required
+def delete_manager(request, manager_id):
+    manager = get_object_or_404(Manager, id=manager_id)
+    if request.method == 'POST':
+        manager.delete()
+        return redirect('home')  # Redirect to the home page
+    return render(request, 'confirm_delete_manager.html', {'manager': manager})
+
+
+@login_required
+def confirm_delete_manager(request, manager_id):
+    manager = get_object_or_404(Manager, id=manager_id)
+    return render(request, 'confirm_delete_manager.html', {'manager': manager})

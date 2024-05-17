@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete Manager</title>
+</head>
+<body>
+    <h2>Confirm Delete Manager</h2>
+    <p>Are you sure you want to delete {{ manager.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Team, Member
+from .models import Team, Member, Manager
 
 
 class TeamForm(forms.ModelForm):
@@ -14,3 +14,9 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ['name', 'role', 'team', 'start_date']
+
+
+class ManagerForm(forms.ModelForm):
+    class Meta:
+        model = Manager
+        fields = ['name', 'team', 'start_date']

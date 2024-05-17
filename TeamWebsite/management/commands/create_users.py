@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from TeamWebsite.models import Manager, Member
+from django.contrib.auth.models import Group
 
 
 class Command(BaseCommand):
@@ -16,6 +17,8 @@ class Command(BaseCommand):
         # Get or create groups
         manager_group, _ = Group.objects.get_or_create(name='Team Managers')
         member_group, _ = Group.objects.get_or_create(name='Team Members')
+
+        User = get_user_model()  # Import your custom User model here
 
         # Iterate through managers and create users
         for manager in managers:
