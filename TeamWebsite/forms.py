@@ -1,5 +1,5 @@
 from django import forms
-from .models import Team,Member
+from .models import Team, Member
 
 
 class TeamForm(forms.ModelForm):
@@ -9,6 +9,8 @@ class TeamForm(forms.ModelForm):
 
 
 class MemberForm(forms.ModelForm):
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = Member
         fields = ['name', 'role', 'team', 'start_date']

@@ -74,3 +74,26 @@ def new_team(request):
     else:
         form = TeamForm()
     return render(request, "new_team.html", {"form": form})
+
+
+# New views for updating and deleting members
+@login_required
+def update_member(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    if request.method == "POST":
+        form = MemberForm(request.POST, instance=member)
+        if form.is_valid():
+            form.save()
+            return redirect('member_detail', member_id=member_id)
+    else:
+        form = MemberForm(instance=member)
+    return render(request, 'update_member.html', {'form': form})
+
+
+@login_required
+def delete_member(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    if request.method == "POST":
+        member.delete()
+        return redirect('home')
+    return render(request, 'confirm_delete.html', {'member': member})
