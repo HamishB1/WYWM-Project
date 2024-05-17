@@ -45,6 +45,14 @@ def team_detail(request, team_id):
     team_members = Member.objects.filter(team=team)
     return render(request, 'team_detail.html', {'team': team, 'team_members': team_members})
 
+@login_required
+def delete_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        team.delete()
+        return redirect('home')
+    return render(request, 'confirm_delete_team.html', {'team': team})
+
 
 @login_required
 def member_detail(request, member_id):
