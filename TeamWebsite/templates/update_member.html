@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Member</title>
+    <link rel="stylesheet" href="{% static 'teamwebsite/style.css' %}">
+</head>
+<body>
+    <h1>Update Member</h1>
+    <form method="post">
+        <table>
+            {{ form.as_table }}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'home' %}"><button type="button">Home</button></a> <!-- Home button -->
+</body>
+</html>

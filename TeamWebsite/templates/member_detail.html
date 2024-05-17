@@ -13,5 +13,10 @@
         <li>Team: {{ member.team.name }}</li>
         <li>Start Date: {{ member.start_date }}</li>
     </ul>
+    <a href="{% url 'update_member' member.id %}">Update</a>
+    <form action="{% url 'delete_member' member.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this member?');">
+    </form>
 </body>
 </html>
