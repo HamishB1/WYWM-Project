@@ -13,7 +13,7 @@
         {% for member in team_members %}
             <li>{{ member.name }} - {{ member.role }} - {{ member.start_date }}</li>
             <!-- Update Link -->
-            <a href="{% url 'update_member' member.id %}">Update</a>
+            <a href="{% url 'update_member' member.id %}"><button type="button">Update</button></a>
             <!-- Delete Form -->
             <form action="{% url 'delete_member' member.id %}" method="post" style="display:inline;">
                 {% csrf_token %}

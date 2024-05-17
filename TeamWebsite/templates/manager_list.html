@@ -13,7 +13,7 @@
                 <h2>{{ manager.name }}</h2>
                 <p>Team: {{ manager.team.name }}</p>
                 <p>Start Date: {{ manager.start_date }}</p>
-                <a href="{% url 'update_manager' manager.id %}">Update</a>
+                <a href="{% url 'update_manager' manager.id %}"><button type="button">Update</button></a>
                 <form action="{% url 'delete_manager' manager.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this manager?');">
@@ -21,7 +21,7 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'create_manager' %}">Add New Manager</a>
+    <a href="{% url 'create_manager' %}"><button type="button">Add New Manager</button></a>
 <a href="{% url 'home' %}"><button type="button">Home</button></a> <!-- Home button -->
 </body>
 </html>
