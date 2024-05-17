@@ -97,3 +97,31 @@ def delete_member(request, member_id):
         member.delete()
         return redirect('home')
     return render(request, 'confirm_delete.html', {'member': member})
+
+
+@login_required
+def move_member(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    if request.method == 'POST':
+        new_team_id = request.POST.get('new_team')
+        new_team = get_object_or_404(Team, id=new_team_id)
+        member.team = new_team
+        member.save()
+        return redirect('team_detail', team_id=new_team_id)
+    else:
+        # Redirect to some page or handle the situation when request method is not POST
+        pass
+
+
+@login_required
+def add_member_to_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    available_members = Member.objects.exclude(team=team)
+    if request.method == 'POST':
+        member_id = request.POST.get('member')
+        member = get_object_or_404(Member, id=member_id)
+        member.team = team
+        member.save()
+        return redirect('team_detail', team_id=team_id)
+    else:
+        return render(request, 'team_detail.html', {'team': team, 'team_members': team.member_set.all(), 'available_members': available_members})
