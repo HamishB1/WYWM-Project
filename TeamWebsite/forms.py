@@ -17,6 +17,7 @@ class MemberForm(forms.ModelForm):
 
 
 class ManagerForm(forms.ModelForm):
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     class Meta:
         model = Manager
         fields = ['name', 'team', 'start_date']

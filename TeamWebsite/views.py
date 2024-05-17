@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.forms import modelform_factory
 from django.contrib import messages
-from .models import Team, Member
+from .models import Team, Member, Manager
 from .forms import TeamForm, MemberForm, ManagerForm
 
 
@@ -128,6 +128,12 @@ def add_member_to_team(request, team_id):
         return render(request, 'team_detail.html', {'team': team, 'team_members': team.member_set.all(), 'available_members': available_members})
 
 
+def manager_detail(request, manager_id):
+    manager = get_object_or_404(Manager, id=manager_id)
+    # Add logic here if needed
+    return render(request, 'manager_detail.html', {'manager': manager})
+
+
 @login_required
 def create_manager(request):
     if request.method == 'POST':
@@ -153,3 +159,23 @@ def delete_manager(request, manager_id):
 def confirm_delete_manager(request, manager_id):
     manager = get_object_or_404(Manager, id=manager_id)
     return render(request, 'confirm_delete_manager.html', {'manager': manager})
+
+
+@login_required
+def manager_list(request):
+    managers = Manager.objects.all()
+    return render(request, 'manager_list.html', {'managers': managers})
+
+
+def update_manager(request, manager_id):
+    manager = get_object_or_404(Manager, id=manager_id)
+
+    if request.method == 'POST':
+        form = ManagerForm(request.POST, instance=manager)
+        if form.is_valid():
+            form.save()
+            return redirect('manager_detail', manager_id=manager_id)
+    else:
+        form = ManagerForm(instance=manager)
+
+    return render(request, 'update_manager.html', {'form': form})

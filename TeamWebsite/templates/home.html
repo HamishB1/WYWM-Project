@@ -23,6 +23,21 @@
         .member-item {
             margin-left: 20px;
         }
+        nav {
+            margin-top: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +46,7 @@
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'new_member' %}">Add New Member</a></li>
             <li><a href="{% url 'new_team' %}">Add New Team</a></li>
-            <!-- Add more navigation links as needed -->
+            <li><a href="{% url 'manager_list' %}">Managers</a></li> <!-- Added link to manager list -->
         </ul>
     </nav>
     <h1>Teams</h1>
@@ -56,5 +71,11 @@
         </div>
     </div> <!-- Closing the div tag for team-card class -->
     {% endfor %}
+
+    <!-- Logout button -->
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>
