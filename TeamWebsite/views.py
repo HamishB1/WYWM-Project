@@ -116,7 +116,8 @@ def move_member(request, member_id):
 @login_required
 def add_member_to_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    available_members = Member.objects.exclude(team=team)
+    available_members = Member.objects.exclude(team=team)  # Exclude members who are already part of the team
+    print("Available Members:", available_members)  # Print out available_members for debugging
     if request.method == 'POST':
         member_id = request.POST.get('member')
         member = get_object_or_404(Member, id=member_id)
